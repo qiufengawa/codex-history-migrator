@@ -1,0 +1,45 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="28" y1="20" x2="228" y2="236" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F766E"/>
+      <stop offset="0.55" stop-color="#144B63"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(84 54) rotate(38) scale(142 136)">
+      <stop stop-color="#99F6E4" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#99F6E4" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="28" y="44" width="200" height="164" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#061018" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect x="12" y="12" width="232" height="232" rx="52" fill="url(#bg)"/>
+  <circle cx="88" cy="60" r="94" fill="url(#glow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="52" y="72" width="74" height="94" rx="20" fill="#ECFDF5" fill-opacity="0.42"/>
+    <rect x="66" y="84" width="74" height="94" rx="20" fill="#F8FAFC" fill-opacity="0.94"/>
+    <rect x="74" y="96" width="12" height="12" rx="6" fill="#14B8A6"/>
+    <rect x="92" y="96" width="34" height="10" rx="5" fill="#CBD5E1"/>
+    <rect x="74" y="118" width="52" height="10" rx="5" fill="#94A3B8"/>
+    <rect x="74" y="136" width="40" height="10" rx="5" fill="#CBD5E1"/>
+    <rect x="74" y="154" width="30" height="10" rx="5" fill="#E2E8F0"/>
+
+    <rect x="132" y="86" width="58" height="84" rx="18" fill="#F8FAFC"/>
+    <rect x="140" y="98" width="10" height="10" rx="5" fill="#F59E0B"/>
+    <rect x="156" y="98" width="24" height="9" rx="4.5" fill="#CBD5E1"/>
+    <rect x="140" y="118" width="40" height="9" rx="4.5" fill="#94A3B8"/>
+    <rect x="140" y="134" width="32" height="9" rx="4.5" fill="#CBD5E1"/>
+    <rect x="140" y="150" width="22" height="9" rx="4.5" fill="#E2E8F0"/>
+  </g>
+
+  <path d="M93 80C111 58 145 56 171 72C181 78 189 87 194 99" stroke="#F59E0B" stroke-width="14" stroke-linecap="round"/>
+  <path d="M186 88L203 105L180 108" fill="#F59E0B"/>
+
+  <path d="M164 176C142 191 111 191 89 177C78 170 70 161 65 149" stroke="#34D399" stroke-width="14" stroke-linecap="round"/>
+  <path d="M74 160L57 143L80 140" fill="#34D399"/>
+
+  <circle cx="129" cy="128" r="10" fill="#F8FAFC" fill-opacity="0.92"/>
+  <circle cx="129" cy="128" r="4" fill="#14B8A6"/>
+</svg>
