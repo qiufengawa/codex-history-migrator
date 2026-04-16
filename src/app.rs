@@ -1,4 +1,5 @@
 use std::env;
+use std::ffi::OsString;
 use std::path::{Path, PathBuf};
 use std::sync::mpsc::{self, Receiver, Sender};
 use std::thread;
@@ -78,10 +79,16 @@ pub struct MigratorApp {
 
 impl Default for MigratorApp {
     fn default() -> Self {
-        let codex_home = default_codex_home()
-            .unwrap_or_else(|| PathBuf::from(r"C:\Users\%USERNAME%\.codex"))
-            .to_string_lossy()
-            .to_string();
+        let detected_codex_home = default_codex_home();
+        let codex_home = detected_codex_home
+            .as_ref()
+            .map(|path| path.to_string_lossy().to_string())
+            .unwrap_or_default();
+        let mut logs = vec!["工具已就绪".to_string()];
+        match &detected_codex_home {
+            Some(path) => logs.push(format!("已自动识别 Codex 目录：{}", path.display())),
+            None => logs.push("未能自动识别 Codex 目录，请手动输入或粘贴 .codex 路径".to_string()),
+        }
 
         Self {
             active_tab: ActiveTab::Overview,
@@ -91,7 +98,7 @@ impl Default for MigratorApp {
             create_backup_on_import: true,
             create_backup_on_provider_sync: true,
             create_safety_backup_on_restore: true,
-            logs: vec!["工具已就绪".to_string()],
+            logs,
             last_scan: None,
             last_export_report: None,
             last_import_report: None,
@@ -473,8 +480,48 @@ impl eframe::App for MigratorApp {
 }
 
 fn default_codex_home() -> Option<PathBuf> {
-    let user_profile = env::var_os("USERPROFILE")?;
-    Some(Path::new(&user_profile).join(".codex"))
+    detect_codex_home_with(|key| env::var_os(key))
+}
+
+fn detect_codex_home_with<F>(get_var: F) -> Option<PathBuf>
+where
+    F: Fn(&str) -> Option<OsString>,
+{
+    if let Some(codex_home) = non_empty_path(get_var("CODEX_HOME")) {
+        return Some(codex_home);
+    }
+
+    if let Some(user_profile) = non_empty_path(get_var("USERPROFILE")) {
+        return Some(user_profile.join(".codex"));
+    }
+
+    if let Some(home) = non_empty_path(get_var("HOME")) {
+        return Some(home.join(".codex"));
+    }
+
+    match (
+        non_empty_path(get_var("HOMEDRIVE")),
+        non_empty_path(get_var("HOMEPATH")),
+    ) {
+        (Some(home_drive), Some(home_path)) => {
+            let combined = format!(
+                "{}{}",
+                home_drive.to_string_lossy(),
+                home_path.to_string_lossy()
+            );
+            Some(Path::new(&combined).join(".codex"))
+        }
+        _ => None,
+    }
+}
+
+fn non_empty_path(value: Option<OsString>) -> Option<PathBuf> {
+    let value = value?;
+    if value.to_string_lossy().trim().is_empty() {
+        return None;
+    }
+
+    Some(PathBuf::from(value))
 }
 
 fn send_task_progress(sender: &Sender<TaskMessage>, fraction: f32, message: impl Into<String>) {
@@ -485,11 +532,54 @@ fn send_task_progress(sender: &Sender<TaskMessage>, fraction: f32, message: impl
 
 #[cfg(test)]
 mod tests {
-    use super::{ActiveTab, MigratorApp};
+    use std::ffi::OsString;
+
+    use super::{detect_codex_home_with, ActiveTab, MigratorApp};
 
     #[test]
     fn default_app_state_starts_on_overview_tab() {
         let app = MigratorApp::default();
         assert_eq!(app.active_tab, ActiveTab::Overview);
+    }
+
+    #[test]
+    fn detect_codex_home_prefers_explicit_codex_home_env() {
+        let detected = detect_codex_home_with(|key| match key {
+            "CODEX_HOME" => Some(OsString::from(r"D:\Portable\CodexData")),
+            "USERPROFILE" => Some(OsString::from(r"C:\Users\Alice")),
+            _ => None,
+        });
+
+        assert_eq!(
+            detected,
+            Some(std::path::PathBuf::from(r"D:\Portable\CodexData"))
+        );
+    }
+
+    #[test]
+    fn detect_codex_home_falls_back_to_windows_profile_directory() {
+        let detected = detect_codex_home_with(|key| match key {
+            "USERPROFILE" => Some(OsString::from(r"C:\Users\Alice")),
+            _ => None,
+        });
+
+        assert_eq!(
+            detected,
+            Some(std::path::PathBuf::from(r"C:\Users\Alice\.codex"))
+        );
+    }
+
+    #[test]
+    fn detect_codex_home_falls_back_to_home_drive_and_path() {
+        let detected = detect_codex_home_with(|key| match key {
+            "HOMEDRIVE" => Some(OsString::from("D:")),
+            "HOMEPATH" => Some(OsString::from(r"\Users\Bob")),
+            _ => None,
+        });
+
+        assert_eq!(
+            detected,
+            Some(std::path::PathBuf::from(r"D:\Users\Bob\.codex"))
+        );
     }
 }

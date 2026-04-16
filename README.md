@@ -21,6 +21,7 @@
 ### 核心功能
 
 - 中文 GUI，适合直接给普通用户使用
+- 自动识别本机 Codex 目录，优先支持 `CODEX_HOME`、`USERPROFILE`、`HOME` 与 `HOMEDRIVE`/`HOMEPATH`
 - 扫描当前 `.codex` 数据目录并显示概要统计
 - 导出聊天迁移包，包含：
   - `state_5.sqlite`
@@ -134,6 +135,7 @@ It focuses on two practical jobs for local Codex data:
 ### Core Features
 
 - Chinese-first GUI for direct end-user use
+- Automatically detects the local Codex directory using `CODEX_HOME`, `USERPROFILE`, `HOME`, or `HOMEDRIVE` + `HOMEPATH`
 - Scan the current `.codex` directory and show a quick overview
 - Export migration packages containing:
   - `state_5.sqlite`
