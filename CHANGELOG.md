@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2026-04-16
+
+### Fixed
+
+- Automatically detects the local Codex directory instead of relying on a username-shaped placeholder path
+- Added startup feedback when auto-detection succeeds or when manual `.codex` path input is still needed
+- Documented the supported auto-detection environment variables in the README
+
 ## [1.0.0] - 2026-04-16
 
 ### Added
