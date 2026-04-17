@@ -1184,10 +1184,7 @@ mod tests {
             _ => None,
         });
 
-        assert_eq!(
-            detected,
-            Some(std::path::PathBuf::from(r"C:\Users\Alice\.codex"))
-        );
+        assert_eq!(detected, Some(std::path::Path::new(r"C:\Users\Alice").join(".codex")));
     }
 
     #[test]
@@ -1200,7 +1197,7 @@ mod tests {
 
         assert_eq!(
             detected,
-            Some(std::path::PathBuf::from(r"D:\Users\Bob\.codex"))
+            Some(std::path::Path::new(r"D:\Users\Bob").join(".codex"))
         );
     }
 
