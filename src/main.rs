@@ -3,7 +3,7 @@
 use std::io::Cursor;
 
 use codex_history_migrator::app::MigratorApp;
-use codex_history_migrator::ui::fonts::configure_chinese_fonts;
+use codex_history_migrator::ui::fonts::configure_ui_fonts;
 use eframe::egui;
 
 fn default_window_size() -> [f32; 2] {
@@ -34,10 +34,10 @@ fn main() -> eframe::Result<()> {
         options,
         Box::new(|cc| {
             let mut app = MigratorApp::default();
-            if let Some(font_path) = configure_chinese_fonts(&cc.egui_ctx) {
-                app.log(format!("已加载中文字体：{}", font_path.display()));
+            if let Some(font_path) = configure_ui_fonts(&cc.egui_ctx) {
+                app.log(format!("已加载界面字体：{}", font_path.display()));
             } else {
-                app.log("未找到可用的中文字体，界面可能仍会出现显示异常。");
+                app.log("未找到合适的界面回退字体，部分文本显示可能不完整。");
             }
             Ok(Box::new(app))
         }),

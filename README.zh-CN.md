@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  轻量、单文件、中文界面的 Codex 本地历史迁移与 Provider 同步工具。
+  轻量、跨平台、中文界面的 Codex 本地历史迁移与 Provider 同步工具。
 </p>
 
 <p align="center">
@@ -14,7 +14,7 @@
 
 ## 这是什么
 
-`Codex History Migrator` 是一个基于 Rust + `egui/eframe` 的 Windows GUI 工具，目标是用一个轻量级单文件 `exe`，解决 Codex 本地聊天数据的两类常见问题：
+`Codex History Migrator` 是一个基于 Rust + `egui/eframe` 的跨平台桌面 GUI 工具，目标是用一个轻量级应用包，解决 Codex 本地聊天数据的两类常见问题：
 
 1. 在不同机器、不同 `.codex` 目录之间导出和导入聊天历史。
 2. 当 `config.toml` 中当前 `model_provider` 已变化时，把旧线程同步到当前 Provider，避免历史线程在 Codex 中“看不见”或分散到不同 Provider 名下。
@@ -22,6 +22,7 @@
 ## 核心功能
 
 - 中文 GUI，适合直接给普通用户使用
+- 支持 Windows、macOS 与 Linux 桌面环境
 - 自动识别本机 Codex 目录，优先支持 `CODEX_HOME`、`USERPROFILE`、`HOME` 与 `HOMEDRIVE` + `HOMEPATH`
 - 扫描当前 `.codex` 数据目录并显示概要统计
 - 导出聊天迁移包，包含：
@@ -60,17 +61,19 @@
 
 ## 运行环境
 
-- Windows 10/11
-- 建议直接使用 Release 页面提供的单文件 `exe`
+- Windows 10/11、macOS、主流 x86_64 Linux
+- 建议直接使用 Release 页面提供的对应平台安装包
 - 如需自行编译，需要安装 Rust stable 工具链
 
 ## 开始使用
 
 ### 直接下载
 
-前往 [GitHub Releases](https://github.com/qiufengawa/codex-history-migrator/releases) 下载最新的单文件 Windows 可执行程序：
+前往 [GitHub Releases](https://github.com/qiufengawa/codex-history-migrator/releases) 下载最新的平台安装包：
 
-- `codex-history-migrator-v1.0.3-windows-x86_64.exe`
+- Windows：`codex-history-migrator-vX.Y.Z-windows-x86_64.exe`
+- macOS：`codex-history-migrator-vX.Y.Z-macos-universal2.zip` 或 `codex-history-migrator-vX.Y.Z-macos-universal2.dmg`
+- Linux：`codex-history-migrator-vX.Y.Z-linux-x86_64.tar.gz` 或 `codex-history-migrator-vX.Y.Z-linux-x86_64.AppImage`
 
 ### 从源码运行
 
@@ -110,7 +113,7 @@ target\release\codex-history-migrator.exe
 
 ## 致谢
 
-本项目的需求方向参考了社区项目 [`GODGOD126/codex-history-sync-tool`](https://github.com/GODGOD126/codex-history-sync-tool)，但本仓库以 Rust 重写，并围绕轻量 GUI、单文件发布、导入导出与 Provider 同步体验做了重新实现。
+本项目的需求方向参考了社区项目 [`GODGOD126/codex-history-sync-tool`](https://github.com/GODGOD126/codex-history-sync-tool)，但本仓库以 Rust 重写，并围绕轻量 GUI、跨平台桌面发布、导入导出与 Provider 同步体验做了重新实现。
 
 ## 许可证
 

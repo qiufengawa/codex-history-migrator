@@ -1,29 +1,55 @@
 use std::fs;
+use std::path::PathBuf;
 
-use codex_history_migrator::ui::fonts::{
-    build_font_definitions_from_candidates, preferred_windows_cjk_font_candidates,
+use codex_history_migrator::platform::{
+    DesktopPlatform, preferred_cjk_font_candidates_for_platform,
 };
+use codex_history_migrator::ui::fonts::build_font_definitions_from_candidates;
 use tempfile::tempdir;
 
 #[test]
-fn preferred_windows_cjk_font_candidates_prioritize_common_chinese_fonts() {
-    let candidates = preferred_windows_cjk_font_candidates();
+fn windows_candidates_include_common_chinese_fonts() {
+    let candidates = preferred_cjk_font_candidates_for_platform(DesktopPlatform::Windows);
 
-    assert!(candidates.iter().any(|path| path.ends_with("msyh.ttc")));
-    assert!(candidates.iter().any(|path| path.ends_with("DENG.TTF")));
-    assert!(candidates.iter().any(|path| path.ends_with("simsun.ttc")));
+    assert!(candidates.iter().any(|path: &PathBuf| path.ends_with("msyh.ttc")));
+    assert!(candidates.iter().any(|path: &PathBuf| path.ends_with("DENG.TTF")));
+    assert!(candidates.iter().any(|path: &PathBuf| path.ends_with("simsun.ttc")));
 }
 
 #[test]
-fn preferred_windows_cjk_font_candidates_prioritize_ttf_before_ttc() {
-    let candidates = preferred_windows_cjk_font_candidates();
+fn macos_candidates_include_common_built_in_cjk_fonts() {
+    let candidates = preferred_cjk_font_candidates_for_platform(DesktopPlatform::MacOS);
+
+    assert!(candidates.iter().any(|path: &PathBuf| path.ends_with("PingFang.ttc")));
+    assert!(
+        candidates
+            .iter()
+            .any(|path: &PathBuf| path.ends_with("Hiragino Sans GB.ttc"))
+    );
+}
+
+#[test]
+fn linux_candidates_include_common_cjk_fonts() {
+    let candidates = preferred_cjk_font_candidates_for_platform(DesktopPlatform::Linux);
+
+    assert!(
+        candidates
+            .iter()
+            .any(|path: &PathBuf| path.ends_with("NotoSansCJK-Regular.ttc"))
+    );
+    assert!(candidates.iter().any(|path: &PathBuf| path.ends_with("wqy-zenhei.ttc")));
+}
+
+#[test]
+fn windows_candidates_prioritize_ttf_before_ttc() {
+    let candidates = preferred_cjk_font_candidates_for_platform(DesktopPlatform::Windows);
     let deng_index = candidates
         .iter()
-        .position(|path| path.ends_with("DENG.TTF"))
+        .position(|path: &PathBuf| path.ends_with("DENG.TTF"))
         .unwrap();
     let msyh_index = candidates
         .iter()
-        .position(|path| path.ends_with("msyh.ttc"))
+        .position(|path: &PathBuf| path.ends_with("msyh.ttc"))
         .unwrap();
 
     assert!(

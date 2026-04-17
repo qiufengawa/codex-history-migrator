@@ -3,21 +3,13 @@ use std::path::PathBuf;
 use std::sync::Arc;
 
 use eframe::egui::{Context, FontData, FontDefinitions, FontFamily};
+use crate::platform::{
+    DesktopPlatform, preferred_cjk_font_candidates_for_current_platform,
+    preferred_cjk_font_candidates_for_platform,
+};
 
 pub fn preferred_windows_cjk_font_candidates() -> Vec<PathBuf> {
-    vec![
-        PathBuf::from(r"C:\Windows\Fonts\DENG.TTF"),
-        PathBuf::from(r"C:\Windows\Fonts\DENGL.TTF"),
-        PathBuf::from(r"C:\Windows\Fonts\DENGB.TTF"),
-        PathBuf::from(r"C:\Windows\Fonts\simsunb.ttf"),
-        PathBuf::from(r"C:\Windows\Fonts\SimsunExtG.ttf"),
-        // egui/epaint documents the font loader around TTF/OTF inputs,
-        // so we keep TTC collections as a later fallback on Windows.
-        PathBuf::from(r"C:\Windows\Fonts\msyh.ttc"),
-        PathBuf::from(r"C:\Windows\Fonts\msyhbd.ttc"),
-        PathBuf::from(r"C:\Windows\Fonts\msyhl.ttc"),
-        PathBuf::from(r"C:\Windows\Fonts\simsun.ttc"),
-    ]
+    preferred_cjk_font_candidates_for_platform(DesktopPlatform::Windows)
 }
 
 pub fn build_font_definitions_from_candidates(candidates: &[PathBuf]) -> FontDefinitions {
@@ -46,10 +38,14 @@ pub fn build_font_definitions_from_candidates(candidates: &[PathBuf]) -> FontDef
     fonts
 }
 
-pub fn configure_chinese_fonts(ctx: &Context) -> Option<PathBuf> {
-    let candidates = preferred_windows_cjk_font_candidates();
+pub fn configure_ui_fonts(ctx: &Context) -> Option<PathBuf> {
+    let candidates = preferred_cjk_font_candidates_for_current_platform();
     let chosen = candidates.iter().find(|path| path.exists()).cloned();
     let fonts = build_font_definitions_from_candidates(&candidates);
     ctx.set_fonts(fonts);
     chosen
+}
+
+pub fn configure_chinese_fonts(ctx: &Context) -> Option<PathBuf> {
+    configure_ui_fonts(ctx)
 }

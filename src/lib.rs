@@ -3,4 +3,5 @@ pub mod core;
 pub mod db;
 pub mod fs;
 pub mod models;
+pub mod platform;
 pub mod ui;

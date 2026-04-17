@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A lightweight Windows desktop tool for migrating Codex local history and syncing thread providers.
+  A lightweight cross-platform desktop tool for migrating Codex local history and syncing thread providers.
 </p>
 
 <p align="center">
@@ -14,7 +14,7 @@
 
 ## What This Is
 
-`Codex History Migrator` is a lightweight Windows desktop utility built with Rust and `egui/eframe`.
+`Codex History Migrator` is a lightweight cross-platform desktop utility built with Rust and `egui/eframe`.
 
 It focuses on two practical jobs for local Codex data:
 
@@ -24,6 +24,7 @@ It focuses on two practical jobs for local Codex data:
 ## Core Features
 
 - Chinese-first GUI for direct end-user use
+- Desktop support for Windows, macOS, and Linux
 - Automatically detects the local Codex directory using `CODEX_HOME`, `USERPROFILE`, `HOME`, or `HOMEDRIVE` + `HOMEPATH`
 - Scan the current `.codex` directory and show a quick overview
 - Export migration packages containing:
@@ -62,17 +63,19 @@ To stay lightweight and predictable, this tool does **not** migrate:
 
 ## Requirements
 
-- Windows 10/11
-- For normal users, download the single-file executable from Releases
+- Windows 10/11, macOS, or mainstream x86_64 Linux
+- For normal users, download the platform-specific package from Releases
 - For developers, install the stable Rust toolchain to build from source
 
 ## Quick Start
 
 ### Download the App
 
-Download the latest single-file Windows executable from [GitHub Releases](https://github.com/qiufengawa/codex-history-migrator/releases):
+Download the latest platform package from [GitHub Releases](https://github.com/qiufengawa/codex-history-migrator/releases):
 
-- `codex-history-migrator-v1.0.3-windows-x86_64.exe`
+- Windows: `codex-history-migrator-vX.Y.Z-windows-x86_64.exe`
+- macOS: `codex-history-migrator-vX.Y.Z-macos-universal2.zip` or `codex-history-migrator-vX.Y.Z-macos-universal2.dmg`
+- Linux: `codex-history-migrator-vX.Y.Z-linux-x86_64.tar.gz` or `codex-history-migrator-vX.Y.Z-linux-x86_64.AppImage`
 
 ### Run from Source
 
@@ -112,7 +115,7 @@ target\release\codex-history-migrator.exe
 
 ## Acknowledgements
 
-This project was inspired by the community project [`GODGOD126/codex-history-sync-tool`](https://github.com/GODGOD126/codex-history-sync-tool), but this repository is rewritten in Rust and reimplemented around a lightweight GUI, single-file Windows delivery, and a smoother export/import plus provider-sync workflow.
+This project was inspired by the community project [`GODGOD126/codex-history-sync-tool`](https://github.com/GODGOD126/codex-history-sync-tool), but this repository is rewritten in Rust and reimplemented around a lightweight GUI, cross-platform desktop delivery, and a smoother export/import plus provider-sync workflow.
 
 ## License
 

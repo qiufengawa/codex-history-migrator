@@ -1,11 +1,11 @@
 use std::path::Path;
-use std::process::Command;
 
 use eframe::egui::{self, Color32, ComboBox, RichText, ScrollArea, TextEdit, Ui};
 use rfd::FileDialog;
 
 use crate::app::MigratorApp;
 use crate::models::manage::{ArchivedFilter, HealthFilter, ManageHealth};
+use crate::platform::{open_file_location_command, open_path_command, run_platform_command};
 
 pub fn render(ui: &mut Ui, app: &mut MigratorApp) {
     render_toolbar(ui, app);
@@ -901,35 +901,11 @@ fn health_badge(ui: &mut Ui, health: ManageHealth) {
 }
 
 fn open_path(path: &Path) -> Result<(), String> {
-    #[cfg(target_os = "windows")]
-    {
-        Command::new("cmd")
-            .args(["/C", "start", "", &path.to_string_lossy()])
-            .spawn()
-            .map_err(|error| error.to_string())?;
-        return Ok(());
-    }
-
-    #[cfg(not(target_os = "windows"))]
-    {
-        let _ = path;
-        Err("当前平台未实现该操作".to_string())
-    }
+    let command = open_path_command(path)?;
+    run_platform_command(&command)
 }
 
 fn open_file_location(path: &Path) -> Result<(), String> {
-    #[cfg(target_os = "windows")]
-    {
-        Command::new("explorer")
-            .arg(format!("/select,{}", path.to_string_lossy()))
-            .spawn()
-            .map_err(|error| error.to_string())?;
-        return Ok(());
-    }
-
-    #[cfg(not(target_os = "windows"))]
-    {
-        let _ = path;
-        Err("当前平台未实现该操作".to_string())
-    }
+    let command = open_file_location_command(path)?;
+    run_platform_command(&command)
 }
