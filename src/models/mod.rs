@@ -1,5 +1,6 @@
 pub mod export_report;
 pub mod import_report;
+pub mod manage;
 pub mod manifest;
 pub mod operation_progress;
 pub mod provider_count;

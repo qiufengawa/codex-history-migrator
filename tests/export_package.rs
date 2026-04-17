@@ -47,7 +47,11 @@ fn export_skips_rollout_files_outside_codex_home() {
     let fixture = create_fake_codex_home();
     let output = fixture.temp.path().join("outside-rollout.codexhist");
     let outside_rollout = fixture.temp.path().join("external-rollout.jsonl");
-    fs::write(&outside_rollout, "{\"type\":\"user_message\",\"payload\":\"outside\"}\n").unwrap();
+    fs::write(
+        &outside_rollout,
+        "{\"type\":\"user_message\",\"payload\":\"outside\"}\n",
+    )
+    .unwrap();
     fixture.set_thread_rollout_path("thread-a", &outside_rollout);
 
     let report = export_package(fixture.codex_home(), &output).unwrap();

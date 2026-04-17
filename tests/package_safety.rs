@@ -29,5 +29,9 @@ fn unpack_rejects_entries_that_escape_output_directory() {
 
     assert!(error.to_string().contains("outside"));
     assert!(!escaped_path.exists());
-    assert!(!fs::read_dir(&output_dir).map(|mut it| it.next().is_some()).unwrap_or(false));
+    assert!(
+        !fs::read_dir(&output_dir)
+            .map(|mut it| it.next().is_some())
+            .unwrap_or(false)
+    );
 }

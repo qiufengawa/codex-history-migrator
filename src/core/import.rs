@@ -87,7 +87,10 @@ where
         emit_progress(
             &mut progress,
             fraction,
-            format!("导入：复制会话文件 {}/{}", copied_payloads, total_payload_files),
+            format!(
+                "导入：复制会话文件 {}/{}",
+                copied_payloads, total_payload_files
+            ),
         );
     })?;
 
@@ -97,12 +100,14 @@ where
         &target_home.join("archived_sessions"),
         |done, _| {
             copied_payloads = copied_after_sessions + done;
-            let fraction =
-                remap_fraction(ratio(copied_payloads, total_payload_files), 0.42, 0.62);
+            let fraction = remap_fraction(ratio(copied_payloads, total_payload_files), 0.42, 0.62);
             emit_progress(
                 &mut progress,
                 fraction,
-                format!("导入：复制会话文件 {}/{}", copied_payloads, total_payload_files),
+                format!(
+                    "导入：复制会话文件 {}/{}",
+                    copied_payloads, total_payload_files
+                ),
             );
         },
     )?;
@@ -197,7 +202,10 @@ where
 
 fn validate_import_package(package_root: &Path, manifest: &Manifest) -> Result<()> {
     if manifest.format_version != 1 {
-        bail!("unsupported package format version: {}", manifest.format_version);
+        bail!(
+            "unsupported package format version: {}",
+            manifest.format_version
+        );
     }
 
     let threads_db = package_root.join("db").join("threads.sqlite");
@@ -219,12 +227,18 @@ fn validate_import_package(package_root: &Path, manifest: &Manifest) -> Result<(
         let safe_relative_path = sanitize_package_relative_path(&relative_path)?;
         let file_path = package_root.join(&safe_relative_path);
         if !file_path.exists() {
-            bail!("package file missing for checksum: {}", safe_relative_path.display());
+            bail!(
+                "package file missing for checksum: {}",
+                safe_relative_path.display()
+            );
         }
 
         let actual_checksum = compute_sha256_hex(&file_path)?;
         if !actual_checksum.eq_ignore_ascii_case(expected_checksum.trim()) {
-            bail!("package checksum mismatch: {}", safe_relative_path.display());
+            bail!(
+                "package checksum mismatch: {}",
+                safe_relative_path.display()
+            );
         }
     }
 

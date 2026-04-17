@@ -72,7 +72,7 @@ To stay lightweight and predictable, this tool does **not** migrate:
 
 Download the latest single-file Windows executable from [GitHub Releases](https://github.com/qiufengawa/codex-history-migrator/releases):
 
-- `codex-history-migrator-v1.0.1-windows-x86_64.exe`
+- `codex-history-migrator-v1.0.2-windows-x86_64.exe`
 
 ### Run from Source
 

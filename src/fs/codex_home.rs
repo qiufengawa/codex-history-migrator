@@ -7,6 +7,7 @@ pub struct CodexHomePaths {
     pub config: PathBuf,
     pub backup_dir: PathBuf,
     pub session_index: PathBuf,
+    pub trash_dir: PathBuf,
 }
 
 impl CodexHomePaths {
@@ -17,6 +18,7 @@ impl CodexHomePaths {
             config: root.join("config.toml"),
             backup_dir: root.join("history_sync_backups"),
             session_index: root.join("session_index.jsonl"),
+            trash_dir: root.join("history_manager_trash"),
         }
     }
 }

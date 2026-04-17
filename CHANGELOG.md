@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2026-04-17
+
+### Added
+
+- Chat history management page with metadata filtering, detail preview, archive/unarchive, selected export, trash restore, and trash cleanup
+- Direct delete entry from the detail panel and visible batch delete actions in the management toolbar
+- Select-all action for the current filtered result set
+
+### Changed
+
+- Refined the management page layout to be more readable and more desktop-tool oriented
+- Improved preview summarization for MCP-style JSON titles, event messages, tool results, and long path display
+- Added quick-copy actions for thread ID, project path, and payload path in the detail panel
+
 ## [1.0.1] - 2026-04-16
 
 ### Fixed

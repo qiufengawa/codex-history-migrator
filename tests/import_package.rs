@@ -51,7 +51,11 @@ fn import_rejects_package_when_checksums_do_not_match() {
 
     assert!(error.to_string().contains("checksum"));
     assert_eq!(target.thread_count(), 0);
-    assert!(!target.session_file("sessions/2026/04/16/rollout-a.jsonl").exists());
+    assert!(
+        !target
+            .session_file("sessions/2026/04/16/rollout-a.jsonl")
+            .exists()
+    );
     assert!(!target.codex_home().join(".backups").exists());
 }
 
@@ -77,5 +81,9 @@ fn import_rejects_package_when_session_payload_is_tampered() {
 
     assert!(error.to_string().contains("checksum"));
     assert_eq!(target.thread_count(), 0);
-    assert!(!target.session_file("sessions/2026/04/16/rollout-a.jsonl").exists());
+    assert!(
+        !target
+            .session_file("sessions/2026/04/16/rollout-a.jsonl")
+            .exists()
+    );
 }
