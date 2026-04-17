@@ -7,24 +7,30 @@ use codex_history_migrator::platform::{
 use codex_history_migrator::ui::fonts::build_font_definitions_from_candidates;
 use tempfile::tempdir;
 
+fn path_contains_fragment(path: &PathBuf, fragment: &str) -> bool {
+    path.to_string_lossy()
+        .replace('\\', "/")
+        .contains(&fragment.replace('\\', "/"))
+}
+
 #[test]
 fn windows_candidates_include_common_chinese_fonts() {
     let candidates = preferred_cjk_font_candidates_for_platform(DesktopPlatform::Windows);
 
-    assert!(candidates.iter().any(|path: &PathBuf| path.ends_with("msyh.ttc")));
-    assert!(candidates.iter().any(|path: &PathBuf| path.ends_with("DENG.TTF")));
-    assert!(candidates.iter().any(|path: &PathBuf| path.ends_with("simsun.ttc")));
+    assert!(candidates.iter().any(|path: &PathBuf| path_contains_fragment(path, "msyh.ttc")));
+    assert!(candidates.iter().any(|path: &PathBuf| path_contains_fragment(path, "DENG.TTF")));
+    assert!(candidates.iter().any(|path: &PathBuf| path_contains_fragment(path, "simsun.ttc")));
 }
 
 #[test]
 fn macos_candidates_include_common_built_in_cjk_fonts() {
     let candidates = preferred_cjk_font_candidates_for_platform(DesktopPlatform::MacOS);
 
-    assert!(candidates.iter().any(|path: &PathBuf| path.ends_with("PingFang.ttc")));
+    assert!(candidates.iter().any(|path: &PathBuf| path_contains_fragment(path, "PingFang.ttc")));
     assert!(
         candidates
             .iter()
-            .any(|path: &PathBuf| path.ends_with("Hiragino Sans GB.ttc"))
+            .any(|path: &PathBuf| path_contains_fragment(path, "Hiragino Sans GB.ttc"))
     );
 }
 
@@ -35,9 +41,9 @@ fn linux_candidates_include_common_cjk_fonts() {
     assert!(
         candidates
             .iter()
-            .any(|path: &PathBuf| path.ends_with("NotoSansCJK-Regular.ttc"))
+            .any(|path: &PathBuf| path_contains_fragment(path, "NotoSansCJK-Regular.ttc"))
     );
-    assert!(candidates.iter().any(|path: &PathBuf| path.ends_with("wqy-zenhei.ttc")));
+    assert!(candidates.iter().any(|path: &PathBuf| path_contains_fragment(path, "wqy-zenhei.ttc")));
 }
 
 #[test]
@@ -45,11 +51,11 @@ fn windows_candidates_prioritize_ttf_before_ttc() {
     let candidates = preferred_cjk_font_candidates_for_platform(DesktopPlatform::Windows);
     let deng_index = candidates
         .iter()
-        .position(|path: &PathBuf| path.ends_with("DENG.TTF"))
+        .position(|path: &PathBuf| path_contains_fragment(path, "DENG.TTF"))
         .unwrap();
     let msyh_index = candidates
         .iter()
-        .position(|path: &PathBuf| path.ends_with("msyh.ttc"))
+        .position(|path: &PathBuf| path_contains_fragment(path, "msyh.ttc"))
         .unwrap();
 
     assert!(
