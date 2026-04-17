@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2026-04-17
+
+### Added
+
+- Cross-platform desktop foundation for Windows, macOS, and Linux
+- Platform abstraction for desktop file opening and file-location reveal commands
+- Cross-platform CJK font fallback discovery for Windows, macOS, and Linux
+- GitHub Actions CI matrix for `windows-latest`, `macos-latest`, and `ubuntu-latest`
+- Release workflow and packaging scripts for:
+  - Windows `exe`
+  - macOS `zip` + `dmg`
+  - Linux `tar.gz` + `AppImage`
+
+### Changed
+
+- Project metadata and README files now describe the app as a cross-platform desktop tool
+- Management actions that open files now route through platform-aware command builders instead of Windows-only UI code
+
 ## [1.0.3] - 2026-04-17
 
 ### Added
