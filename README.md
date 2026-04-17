@@ -39,7 +39,7 @@ It focuses on two practical jobs for local Codex data:
 - Optional backup before provider sync, enabled by default
 - Restore the latest provider-sync backup
 - Progress feedback for scan, export, and import operations
-- Embedded Windows icon with no extra console window on launch
+- Desktop app icons included in release artifacts, with Windows GUI launch avoiding an extra console window
 
 ## Safety and Integrity
 

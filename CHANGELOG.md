@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2026-04-17
+
+### Changed
+
+- Cleaned up remaining Windows-first wording in the English and Chinese README files
+- Removed obsolete Windows-only font helper aliases in favor of the platform-neutral font entry point
+
 ## [1.1.0] - 2026-04-17
 
 ### Added

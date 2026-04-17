@@ -1,6 +1,6 @@
 [package]
 name = "codex-history-migrator"
-version = "1.1.0"
+version = "1.1.1"
 edition = "2024"
 build = "build.rs"
 description = "Lightweight cross-platform desktop GUI tool for Codex local history migration and provider sync"

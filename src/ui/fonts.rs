@@ -3,14 +3,7 @@ use std::path::PathBuf;
 use std::sync::Arc;
 
 use eframe::egui::{Context, FontData, FontDefinitions, FontFamily};
-use crate::platform::{
-    DesktopPlatform, preferred_cjk_font_candidates_for_current_platform,
-    preferred_cjk_font_candidates_for_platform,
-};
-
-pub fn preferred_windows_cjk_font_candidates() -> Vec<PathBuf> {
-    preferred_cjk_font_candidates_for_platform(DesktopPlatform::Windows)
-}
+use crate::platform::preferred_cjk_font_candidates_for_current_platform;
 
 pub fn build_font_definitions_from_candidates(candidates: &[PathBuf]) -> FontDefinitions {
     let mut fonts = FontDefinitions::default();
@@ -44,8 +37,4 @@ pub fn configure_ui_fonts(ctx: &Context) -> Option<PathBuf> {
     let fonts = build_font_definitions_from_candidates(&candidates);
     ctx.set_fonts(fonts);
     chosen
-}
-
-pub fn configure_chinese_fonts(ctx: &Context) -> Option<PathBuf> {
-    configure_ui_fonts(ctx)
 }
