@@ -70,7 +70,7 @@
 
 前往 [GitHub Releases](https://github.com/qiufengawa/codex-history-migrator/releases) 下载最新的单文件 Windows 可执行程序：
 
-- `codex-history-migrator-v1.0.2-windows-x86_64.exe`
+- `codex-history-migrator-v1.0.3-windows-x86_64.exe`
 
 ### 从源码运行
 

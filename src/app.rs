@@ -1085,7 +1085,7 @@ impl eframe::App for MigratorApp {
 
         egui::TopBottomPanel::bottom("logs")
             .resizable(true)
-            .default_height(180.0)
+            .default_height(140.0)
             .show(ctx, |ui| logs::render(ui, self));
     }
 }

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2026-04-17
+
+### Added
+
+- Select-all action for the current filtered result set in the management toolbar
+- More obvious delete entry from the detail panel for the current thread
+
+### Changed
+
+- Increased the default desktop window size so the management layout opens in a more suitable viewport
+- Reduced initial log panel height to leave more room for the main interface
+- Kept batch actions visible above the management content area for better discoverability
+
 ## [1.0.2] - 2026-04-17
 
 ### Added
