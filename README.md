@@ -117,6 +117,17 @@ target\release\codex-history-migrator.exe
 
 This project was inspired by the community project [`GODGOD126/codex-history-sync-tool`](https://github.com/GODGOD126/codex-history-sync-tool), but this repository is rewritten in Rust and reimplemented around a lightweight GUI, cross-platform desktop delivery, and a smoother export/import plus provider-sync workflow.
 
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=qiufengawa%2Fcodex-history-migrator&type=timeline&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=qiufengawa/codex-history-migrator&type=timeline&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=qiufengawa/codex-history-migrator&type=timeline&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=qiufengawa/codex-history-migrator&type=timeline&legend=top-left" />
+ </picture>
+</a>
+
 ## License
 
 MIT
